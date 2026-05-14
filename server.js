@@ -16,11 +16,9 @@ app.get("/", async (req, res) => {
 
   try {
 
-    const db = getDB();
+    await connectDB();
 
-    if (!db) {
-      return res.send("Database not connected");
-    }
+    const db = getDB();
 
     const students = await db
       .collection("students")
@@ -45,6 +43,8 @@ app.post("/add-student", async (req, res) => {
 
   try {
 
+    await connectDB();
+
     const db = getDB();
 
     const { name, age, rollnumber, image } = req.body;
@@ -67,9 +67,5 @@ app.post("/add-student", async (req, res) => {
   }
 
 });
-
-(async () => {
-  await connectDB();
-})();
 
 module.exports = app;
