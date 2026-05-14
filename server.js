@@ -12,15 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Connect Database
-connectDB();
-
-// Home Route
 app.get("/", async (req, res) => {
 
   try {
 
     const db = getDB();
+
+    if (!db) {
+      return res.send("Database not connected");
+    }
 
     const students = await db
       .collection("students")
@@ -35,13 +35,12 @@ app.get("/", async (req, res) => {
 
     console.log(error);
 
-    res.send("Error");
+    res.send(error.message);
 
   }
 
 });
 
-// Insert Student
 app.post("/add-student", async (req, res) => {
 
   try {
@@ -63,14 +62,14 @@ app.post("/add-student", async (req, res) => {
 
     console.log(error);
 
-    res.send("Error");
+    res.send(error.message);
 
   }
 
 });
 
-const PORT = process.env.PORT || 3000;
+(async () => {
+  await connectDB();
+})();
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+module.exports = app;
