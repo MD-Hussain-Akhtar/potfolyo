@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Student Management</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 min-h-screen p-6">
+
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Heading -->
+
+    <div class="text-center mb-10">
+
+    <h1 class="text-2xl md:text-5xl font-extrabold text-gray-800 mb-3">
+
+  <span class="block md:hidden">
+    Student Details
+  </span>
+
+  <span class="hidden md:block">
+    Student Management System
+  </span>
+
+</h1>
+
+      <p class="text-gray-600 text-lg">
+        Add and manage students with MongoDB
+      </p>
+
+    </div>
+
+    <!-- Form Card -->
+
+    <div class="bg-white/70 backdrop-blur-lg shadow-2xl rounded-3xl p-8 mb-14 border border-white/30">
+
+      <h2 class="text-3xl font-bold text-blue-600 mb-6">
+        Add Student
+      </h2>
+
+      <form
+        action="/add-student"
+        method="POST"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+
+        <!-- Name -->
+
+        <div>
+
+          <label class="block mb-2 font-semibold text-gray-700">
+            Name
+          </label>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter student name"
+            required
+            class="w-full p-4 rounded-2xl border border-gray-300 outline-none focus:ring-4 focus:ring-blue-300"
+          />
+
+        </div>
+
+        <!-- Age -->
+
+        <div>
+
+          <label class="block mb-2 font-semibold text-gray-700">
+            Age
+          </label>
+
+          <input
+            type="number"
+            name="age"
+            placeholder="Enter age"
+            required
+            class="w-full p-4 rounded-2xl border border-gray-300 outline-none focus:ring-4 focus:ring-blue-300"
+          />
+
+        </div>
+
+        <!-- Roll Number -->
+
+        <div>
+
+          <label class="block mb-2 font-semibold text-gray-700">
+            Roll Number
+          </label>
+
+          <input
+            type="text"
+            name="rollnumber"
+            placeholder="Enter roll number"
+            required
+            class="w-full p-4 rounded-2xl border border-gray-300 outline-none focus:ring-4 focus:ring-blue-300"
+          />
+
+        </div>
+
+        <!-- Image URL -->
+
+        <div>
+
+          <label class="block mb-2 font-semibold text-gray-700">
+            Image URL
+          </label>
+
+          <input
+            type="url"
+            name="image"
+            placeholder="Paste image URL"
+            required
+            class="w-full p-4 rounded-2xl border border-gray-300 outline-none focus:ring-4 focus:ring-blue-300"
+          />
+
+        </div>
+
+        <!-- Button -->
+
+        <button
+          type="submit"
+          class="md:col-span-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-2xl text-lg font-bold hover:scale-[1.02] transition duration-300 shadow-lg"
+        >
+          Add Student
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- Student Cards -->
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <% students.forEach(student => { %>
+
+        <div
+          class="bg-white/80 backdrop-blur-md rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:-translate-y-2 transition duration-300"
+        >
+
+          <!-- Image -->
+
+          <div class="h-72 overflow-hidden">
+
+            <img
+              src="<%= student.image %>"
+              alt="student"
+              class="w-full h-full object-cover hover:scale-110 transition duration-500"
+            />
+
+          </div>
+
+          <!-- Content -->
+
+          <div class="p-6">
+
+            <h2 class="text-3xl font-bold text-gray-800 mb-3">
+              <%= student.name %>
+            </h2>
+
+            <div class="space-y-2">
+
+              <p class="text-gray-600 text-lg">
+                🎂 Age:
+                <span class="font-semibold">
+                  <%= student.age %>
+                </span>
+              </p>
+
+              <p class="text-gray-600 text-lg">
+                🆔 Roll Number:
+                <span class="font-semibold">
+                  <%= student.rollnumber %>
+                </span>
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      <% }) %>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
