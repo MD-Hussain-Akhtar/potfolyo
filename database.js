@@ -1,15 +1,17 @@
 const { MongoClient } = require("mongodb");
 
-const uri ="mongodb+srv://mhussainakhter:Hussain123@hussain.78rwg7r.mongodb.net/studentDB?retryWrites=true&w=majority";
+const uri =
+"mongodb+srv://mhussainakhter:Hussain123@hussain.78rwg7r.mongodb.net/studentDB?retryWrites=true&w=majority";
+
 const client = new MongoClient(uri);
 
-let db;
+let db = null;
 
 async function connectDB() {
 
-  if (db) return db;
-
   try {
+
+    if (db) return db;
 
     await client.connect();
 
@@ -23,11 +25,18 @@ async function connectDB() {
 
     console.log(error);
 
+    throw error;
+
   }
 
 }
 
-function getDB() {
+async function getDB() {
+
+  if (!db) {
+    db = await connectDB();
+  }
+
   return db;
 }
 

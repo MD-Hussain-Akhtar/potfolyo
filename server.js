@@ -18,7 +18,7 @@ app.get("/", async (req, res) => {
 
     await connectDB();
 
-    const db = getDB();
+   const db = await getDB();
 
     const students = await db
       .collection("students")
@@ -45,7 +45,7 @@ app.post("/add-student", async (req, res) => {
 
     await connectDB();
 
-    const db = getDB();
+   const db = await getDB();
 
     const { name, age, rollnumber, image } = req.body;
 
